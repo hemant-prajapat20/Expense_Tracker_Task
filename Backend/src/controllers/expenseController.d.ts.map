@@ -1,1 +1,0 @@
-{"version":3,"file":"expenseController.d.ts","sourceRoot":"","sources":["expenseController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAG5C,eAAO,MAAM,iBAAiB;uBAET,OAAO,OAAO,QAAQ;6BAmBhB,OAAO,OAAO,QAAQ;yBAW1B,OAAO,OAAO,QAAQ,KAAG,GAAG;yBA+B5B,OAAO,OAAO,QAAQ,KAAG,GAAG;yBAmC5B,OAAO,OAAO,QAAQ,KAAG,GAAG;CAgBlD,CAAC"}
