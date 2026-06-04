@@ -47,10 +47,11 @@ export const expenseController = {
         return res.status(400).json({ error: 'Amount must be a positive number.' });
       }
 
-      // Validation 3: Date cannot be in the future
+      // Validation 3: Date cannot be in the future (with 1 day timezone buffer)
       const expenseDate = new Date(date);
-      const today = new Date();
-      if (expenseDate > today) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      if (expenseDate > tomorrow) {
         return res.status(400).json({ error: 'Expense date cannot be in the future.' });
       }
 
@@ -82,8 +83,9 @@ export const expenseController = {
       // Validation check for future date if they are updating it
       if (date !== undefined) {
         const expenseDate = new Date(date);
-        const today = new Date();
-        if (expenseDate > today) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        if (expenseDate > tomorrow) {
           return res.status(400).json({ error: 'Expense date cannot be in the future.' });
         }
       }

@@ -28,12 +28,12 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
         throw new Error("Amount must be a positive number greater than zero.");
       }
 
-      // 2. Validation: Date cannot be in the future
+      // 2. Validation: Date cannot be in the future (adding 1 day buffer for timezone differences)
       const selectedDate = new Date(date);
-      const today = new Date();
-      // Reset hours to strictly compare dates
-      today.setHours(0, 0, 0, 0); 
-      if (selectedDate > today) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0); 
+      if (selectedDate > tomorrow) {
         throw new Error("You cannot log an expense in the future.");
       }
 
@@ -70,7 +70,7 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1">Amount *</label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">₹</span>
             <input
               type="number"
               step="0.01"

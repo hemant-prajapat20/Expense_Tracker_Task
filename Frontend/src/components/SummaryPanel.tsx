@@ -56,15 +56,15 @@ export function SummaryPanel({ refreshTrigger }: SummaryPanelProps) {
             )}
           </div>
           <p className="text-3xl font-bold text-slate-900">
-            ${summary.totalThisMonth.toFixed(2)}
+            ₹{summary.totalThisMonth.toFixed(2)}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Budget: ${BUDGET_LIMIT.toFixed(2)}</p>
+          <p className="text-xs text-slate-500 mt-1">Budget: ₹{BUDGET_LIMIT.toFixed(2)}</p>
         </div>
         
         <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
           <p className="text-sm font-medium text-emerald-600 mb-1">Highest Single Expense</p>
           <p className="text-3xl font-bold text-slate-900">
-            ${summary.highestExpense ? summary.highestExpense.amount.toFixed(2) : '0.00'}
+            ₹{summary.highestExpense ? summary.highestExpense.amount.toFixed(2) : '0.00'}
           </p>
           {summary.highestExpense && (
             <p className="text-xs text-slate-500 mt-1 truncate">

@@ -67,9 +67,10 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
       return;
     }
     const selectedDate = new Date(editForm.date || '');
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    if (selectedDate > today) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0,0,0,0);
+    if (selectedDate > tomorrow) {
       alert("Date cannot be in the future.");
       return;
     }
@@ -230,7 +231,7 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
                         className="w-24 border rounded px-2 py-1 text-sm text-right"
                       />
                     ) : (
-                      `$${expense.amount.toFixed(2)}`
+                      `₹${expense.amount.toFixed(2)}`
                     )}
                   </td>
 
