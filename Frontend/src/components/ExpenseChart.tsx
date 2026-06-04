@@ -35,8 +35,6 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
     setActiveIndex(prev => (prev === index ? null : index));
   };
 
-  const totalAmount = data.reduce((sum, item) => sum + item.total, 0);
-
   return (
     <div className="h-72 w-full relative">
       <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
@@ -79,8 +77,8 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
       </ResponsiveContainer>
 
       {/* Center Label Overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ top: '-18px' }}>
-        {activeIndex !== null && data[activeIndex] ? (
+      {activeIndex !== null && data[activeIndex] && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ top: '-18px' }}>
           <div className="text-center animate-fade-in">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
               {data[activeIndex].category}
@@ -89,17 +87,8 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
               ₹{data[activeIndex].total.toFixed(2)}
             </p>
           </div>
-        ) : (
-          <div className="text-center">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Total
-            </p>
-            <p className="text-lg font-bold text-slate-800">
-              ₹{totalAmount.toFixed(2)}
-            </p>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
