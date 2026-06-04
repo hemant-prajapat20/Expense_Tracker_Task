@@ -8,9 +8,15 @@ interface ExpenseFormProps {
 const CATEGORIES = ['Food', 'Transport', 'Bills', 'Entertainment', 'Other'];
 
 export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
+  // Format local date for datetime-local input
+  const getLocalNow = () => {
+    const now = new Date();
+    return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  };
+  
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState(CATEGORIES[0]);
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [date, setDate] = useState(getLocalNow());
   const [note, setNote] = useState('');
   
   const [error, setError] = useState<string | null>(null);
@@ -99,11 +105,11 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Date *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Date & Time *</label>
             <input
-              type="date"
+              type="datetime-local"
               value={date}
-              max={new Date().toISOString().split('T')[0]} // HTML5 built-in future date blocking
+              max={getLocalNow()} // Block future date/time
               onChange={(e) => setDate(e.target.value)}
               className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required

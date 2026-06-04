@@ -177,14 +177,23 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
                   <td className="px-6 py-4 whitespace-nowrap">
                     {editingId === expense.id ? (
                       <input 
-                        type="date" 
+                        type="datetime-local" 
                         value={editForm.date} 
-                        max={new Date().toISOString().split('T')[0]}
                         onChange={e => setEditForm({...editForm, date: e.target.value})}
                         className="w-full border rounded px-2 py-1 text-sm"
                       />
                     ) : (
-                      expense.date
+                      <span className="font-medium">
+                        {new Date(expense.date).toLocaleString('en-IN', {
+                          timeZone: 'Asia/Kolkata',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: true
+                        })}
+                      </span>
                     )}
                   </td>
                   
