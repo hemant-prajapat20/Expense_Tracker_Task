@@ -54,7 +54,7 @@ export const expenseController = {
         return res.status(400).json({ error: 'Expense date cannot be in the future.' });
       }
 
-      const newExpense = ExpenseModel.create({ amount, category, date, note });
+      const newExpense = ExpenseModel.create({ amount, category, date, ...(note && { note }) });
       res.status(201).json(newExpense);
     } catch (error) {
       console.error(error);
@@ -69,7 +69,7 @@ export const expenseController = {
       const { amount, category, date, note } = req.body;
 
       // Ensure the expense actually exists first
-      const existingExpense = ExpenseModel.getById(id);
+      const existingExpense = ExpenseModel.getById(id as string);
       if (!existingExpense) {
         return res.status(404).json({ error: 'Expense not found.' });
       }
@@ -88,7 +88,7 @@ export const expenseController = {
         }
       }
 
-      const updatedExpense = ExpenseModel.update(id, { amount, category, date, note });
+      const updatedExpense = ExpenseModel.update(id as string, { amount, category, date, ...(note && { note }) });
       res.status(200).json(updatedExpense);
     } catch (error) {
       console.error(error);
@@ -101,7 +101,7 @@ export const expenseController = {
     try {
       const { id } = req.params;
       
-      const deleted = ExpenseModel.delete(id);
+      const deleted = ExpenseModel.delete(id as string);
       
       if (!deleted) {
         return res.status(404).json({ error: 'Expense not found.' });
