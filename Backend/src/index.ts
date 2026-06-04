@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { initDB } from './config/db';
+import expenseRoutes from './routes/expenseRoutes';
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ app.use(express.json());
 
 // Initialize Database Tables
 initDB();
+
+// API Routes
+app.use('/api/expenses', expenseRoutes);
 
 // Basic route for testing
 app.get('/', (req: Request, res: Response) => {
