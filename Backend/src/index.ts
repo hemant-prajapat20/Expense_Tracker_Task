@@ -7,7 +7,7 @@ import { expenseRoutes } from './routes/expenseRoutes';
 dotenv.config();
 
 const app = express();
-const PORT = 5005;
+const PORT = process.env.PORT || 5005;
 
 // Middleware
 app.use(cors());
