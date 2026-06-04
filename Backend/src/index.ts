@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { initDB } from './config/db';
-import expenseRoutes from './routes/expenseRoutes';
+import { expenseRoutes } from './routes/expenseRoutes';
 
 dotenv.config();
 
