@@ -1,16 +1,27 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import Database from 'better-sqlite3';
+import path from 'path';
 
-dotenv.config();
+// Connect to (or create) the SQLite database file
+const dbPath = path.resolve(__dirname, '../../database.sqlite');
+const db: Database.Database = new Database(dbPath, { verbose: console.log });
 
-const connectDB = async () => {
+// Initialize the database tables if they don't exist
+export const initDB = () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI || '');
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const createExpensesTable = `
+      CREATE TABLE IF NOT EXISTS expenses (
+        id TEXT PRIMARY KEY,
+        amount REAL NOT NULL,
+        category TEXT NOT NULL,
+        date TEXT NOT NULL,
+        note TEXT
+      );
+    `;
+    db.exec(createExpensesTable);
+    console.log('SQLite Database initialized and connected.');
   } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error instanceof Error ? error.message : error}`);
-    process.exit(1);
+    console.error('Error initializing SQLite Database:', error);
   }
 };
 
-export default connectDB;
+export default db;
