@@ -55,8 +55,17 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
       setAmount('');
       setNote('');
       onExpenseAdded(); // Notify parent to refresh the list/summary
-    } catch (err: any) {
-      setError(err.response?.data?.error || err.message || "Failed to add expense.");
+    } catch (err: unknown) {
+      let message = "Failed to add expense.";
+      if (err && typeof err === 'object' && 'response' in err) {
+        const responseData = (err as { response?: { data?: { error?: string } } }).response?.data;
+        if (responseData?.error) {
+          message = responseData.error;
+        }
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
     } finally {
       setIsSubmitting(false);
     }

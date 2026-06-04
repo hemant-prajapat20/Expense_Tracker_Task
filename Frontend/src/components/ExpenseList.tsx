@@ -36,7 +36,20 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
 
   // Reload when the parent says so, or when filters change
   useEffect(() => {
-    loadExpenses();
+    let isMounted = true;
+    
+    const runLoad = async () => {
+      await Promise.resolve(); // Defer to break synchronous execution path
+      if (isMounted) {
+        loadExpenses();
+      }
+    };
+
+    runLoad();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [refreshTrigger, loadExpenses]);
 
   const handleDelete = async (id: string) => {
