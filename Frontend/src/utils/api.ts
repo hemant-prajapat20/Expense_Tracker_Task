@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Expense, ExpenseSummary } from '../types';
+import type { Expense, ExpenseSummary } from '../types';
 
 const API_URL = 'http://localhost:5000/api/expenses';
 

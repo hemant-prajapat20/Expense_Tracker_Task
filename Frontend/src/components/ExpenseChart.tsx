@@ -33,12 +33,12 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
             dataKey="total"
             nameKey="category"
           >
-            {data.map((entry, index) => (
+            {data.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: number) => `$${value.toFixed(2)}`}
+            formatter={(value: any) => `$${Number(value).toFixed(2)}`}
             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
           />
           <Legend verticalAlign="bottom" height={36} iconType="circle" />

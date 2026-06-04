@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Expense } from '../types';
+import type { Expense } from '../types';
 import { deleteExpense, fetchExpenses, updateExpense } from '../utils/api';
 
 interface ExpenseListProps {
@@ -144,6 +144,7 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
           >
             {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
+          </div>
         </div>
       </div>
 

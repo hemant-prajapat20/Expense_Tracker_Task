@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchSummary } from '../utils/api';
-import { ExpenseSummary } from '../types';
+import type { ExpenseSummary } from '../types';
 import { ExpenseChart } from './ExpenseChart';
 
 interface SummaryPanelProps {
