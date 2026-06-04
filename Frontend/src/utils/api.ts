@@ -1,7 +1,9 @@
 import axios from 'axios';
 import type { Expense, ExpenseSummary } from '../types';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005/api/expenses';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
+const CLEAN_BASE = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+const API_URL = `${CLEAN_BASE}/api/expenses`;
 
 export const fetchExpenses = async (filters?: { category?: string; startDate?: string; endDate?: string }) => {
   const params = new URLSearchParams();
