@@ -16,25 +16,30 @@ I chose the **Mini Expense Tracker** exercise to build a full-stack, responsive 
 ## How We Met the Evaluation Criteria
 
 ### 1. Code Quality (25%)
+
 - **TypeScript Type Safety:** Strict typing is enforced on both the React frontend and the Express backend to prevent runtime type errors.
 - **Separation of Concerns:** The backend cleanly splits logic into config (database connection), controllers (business logic), models (direct SQL queries), and routes.
 - **Modern React Hooks:** State management, pagination, and API fetching are cleanly written using hooks (`useState`, `useEffect`) and cleanly passed to child components.
 
 ### 2. Functionality (25%)
+
 - **Complete CRUD Operations:** Full capability to create, read, update (edit), and delete expenses with real-time screen updates.
 - **Real-time Charting:** The pie chart dynamically updates as expenses are added, edited, or deleted.
 
 ### 3. Full Stack Integration (20%)
+
 - **Robust REST API:** Designed standard, semantic HTTP methods (`GET`, `POST`, `PUT`, `DELETE`).
 - **Input Validation:** The backend validates fields before database writes (e.g., checking that the amount is a positive number and that dates are not set too far into the future).
 - **SQLite Persistence:** Uses `better-sqlite3` to persist data on server-side disk rather than memory.
 
 ### 4. UI / UX (15%)
+
 - **Modern Look & Feel:** Built with modern CSS colors, soft shadow boxes, clean typography, and subtle transitions.
 - **Responsive Design:** Completely optimized for mobile and desktop viewports, with collapsible tables and dynamic sizing.
 - **Budget Indicator:** Visually alerts users if their spending exceeds their budget limit.
 
 ### 5. Documentation, Git & Deployment (10% + 5% Bonus)
+
 - **Detailed Docs:** Full API documentation including exact JSON request bodies and response shapes.
 - **Clean Commits:** Clean Git commit logs showing logical progression.
 - **Vercel & Render Integration:** Successfully deployed for immediate review.
@@ -54,7 +59,7 @@ I chose the **Mini Expense Tracker** exercise to build a full-stack, responsive 
 
 ## How to Run Locally
 
-*Assuming you have Node.js installed:*
+Assuming you have Node.js installed on your machine.
 
 ### 1. Clone and Setup
 
@@ -74,7 +79,7 @@ npm run dev
 
 ### 3. Start the Frontend
 
-*(Open a new terminal window)*
+Open a new terminal window:
 
 ```bash
 cd Frontend
@@ -96,91 +101,105 @@ Open your browser and navigate to the Local URL provided by Vite (usually `http:
 ### Endpoints
 
 #### 1. Get All Expenses
+
 - **Method:** `GET`
 - **Path:** `/`
 - **Query Parameters:** `category` (optional, filter), `startDate` (optional, YYYY-MM-DD), `endDate` (optional, YYYY-MM-DD)
 - **Response Shape (200 OK):**
-  ```json
-  [
-    {
-      "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
-      "amount": 2500,
-      "category": "Food",
-      "date": "2026-06-04T12:00:00",
-      "note": "Lunch at restaurant"
-    }
-  ]
-  ```
+
+```json
+[
+  {
+    "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+    "amount": 2500,
+    "category": "Food",
+    "date": "2026-06-04T12:00:00",
+    "note": "Lunch at restaurant"
+  }
+]
+```
 
 #### 2. Get Expense Summary
+
 - **Method:** `GET`
 - **Path:** `/summary`
 - **Response Shape (200 OK):**
-  ```json
-  {
-    "totalThisMonth": 2500,
-    "highestExpense": 2500,
-    "categoryTotals": {
-      "Food": 2500
-    }
+
+```json
+{
+  "totalThisMonth": 2500,
+  "highestExpense": 2500,
+  "categoryTotals": {
+    "Food": 2500
   }
-  ```
+}
+```
 
 #### 3. Create Expense
+
 - **Method:** `POST`
 - **Path:** `/`
 - **Request Body:**
-  ```json
-  {
-    "amount": 1200,
-    "category": "Transport",
-    "date": "2026-06-04T10:15:00",
-    "note": "Train ticket to city center"
-  }
-  ```
+
+```json
+{
+  "amount": 1200,
+  "category": "Transport",
+  "date": "2026-06-04T10:15:00",
+  "note": "Train ticket to city center"
+}
+```
+
 - **Response Shape (201 Created):**
-  ```json
-  {
-    "id": "uuid-string-here",
-    "amount": 1200,
-    "category": "Transport",
-    "date": "2026-06-04T10:15:00",
-    "note": "Train ticket to city center"
-  }
-  ```
+
+```json
+{
+  "id": "uuid-string-here",
+  "amount": 1200,
+  "category": "Transport",
+  "date": "2026-06-04T10:15:00",
+  "note": "Train ticket to city center"
+}
+```
 
 #### 4. Update Expense
+
 - **Method:** `PUT`
 - **Path:** `/:id`
 - **Request Body:**
-  ```json
-  {
-    "amount": 1500,
-    "category": "Transport",
-    "date": "2026-06-04T10:15:00",
-    "note": "Train ticket (updated price)"
-  }
-  ```
+
+```json
+{
+  "amount": 1500,
+  "category": "Transport",
+  "date": "2026-06-04T10:15:00",
+  "note": "Train ticket (updated price)"
+}
+```
+
 - **Response Shape (200 OK):**
-  ```json
-  {
-    "id": "uuid-string-here",
-    "amount": 1500,
-    "category": "Transport",
-    "date": "2026-06-04T10:15:00",
-    "note": "Train ticket (updated price)"
-  }
-  ```
+
+```json
+{
+  "id": "uuid-string-here",
+  "amount": 1500,
+  "category": "Transport",
+  "date": "2026-06-04T10:15:00",
+  "note": "Train ticket (updated price)"
+}
+```
 
 #### 5. Delete Expense
+
 - **Method:** `DELETE`
 - **Path:** `/:id`
 - **Response Shape (200 OK):**
-  ```json
-  {
-    "success": true
-  }
-  ```
+
+```json
+{
+  "success": true
+}
+```
 
 ---
 
@@ -215,9 +234,11 @@ ExpenseTracker/
 ## Next Steps
 
 **What I chose not to do:**
+
 - I chose not to implement user authentication (Login/Signup) or multi-user accounts. For the scope of this exercise, a single-user local database was sufficient to demonstrate full CRUD functionality and data visualization without overcomplicating the architecture.
 
 **What I would build next:**
+
 - **Receipt Uploads:** Integrate an AWS S3 bucket to allow users to upload images of physical receipts alongside their expense logs.
 - **Multi-Currency Support:** Add a dropdown to select different currencies and use a real-time exchange rate API to standardize the database amounts.
 - **Dark Mode:** Implement a dark mode toggle to improve the UI accessibility and aesthetics for users in low-light environments.
