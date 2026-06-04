@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 interface ExpenseChartProps {
@@ -7,6 +8,8 @@ interface ExpenseChartProps {
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#64748B'];
 
 export function ExpenseChart({ data }: ExpenseChartProps) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   if (data.length === 0) {
     return (
       <div className="h-64 flex flex-col items-center justify-center text-slate-400">
@@ -19,8 +22,23 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
     );
   }
 
+  const handlePieEnter = (_: unknown, index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handlePieLeave = () => {
+    setActiveIndex(null);
+  };
+
+  const handlePieClick = (_: unknown, index: number) => {
+    // Toggle active index on click (perfect for mobile touch)
+    setActiveIndex(prev => (prev === index ? null : index));
+  };
+
+  const totalAmount = data.reduce((sum, item) => sum + item.total, 0);
+
   return (
-    <div className="h-72 w-full">
+    <div className="h-72 w-full relative">
       <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
         <PieChart>
           <Pie
@@ -32,18 +50,56 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
             paddingAngle={5}
             dataKey="total"
             nameKey="category"
+            onMouseEnter={handlePieEnter}
+            onMouseLeave={handlePieLeave}
+            onClick={handlePieClick}
           >
             {data.map((_entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell 
+                key={`cell-${index}`} 
+                fill={COLORS[index % COLORS.length]}
+                style={{
+                  outline: 'none',
+                  cursor: 'pointer',
+                  opacity: activeIndex === null || activeIndex === index ? 1 : 0.6,
+                  transform: activeIndex === index ? 'scale(1.05)' : 'scale(1)',
+                  transformOrigin: '50% 50%',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease'
+                }}
+              />
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: number | string) => `₹${Number(value).toFixed(2)}`}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            formatter={(value: any) => `₹${Number(value).toFixed(2)}`}
             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
           />
           <Legend verticalAlign="bottom" height={36} iconType="circle" />
         </PieChart>
       </ResponsiveContainer>
+
+      {/* Center Label Overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none" style={{ top: '-18px' }}>
+        {activeIndex !== null && data[activeIndex] ? (
+          <div className="text-center animate-fade-in">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              {data[activeIndex].category}
+            </p>
+            <p className="text-lg font-bold text-slate-800">
+              ₹{data[activeIndex].total.toFixed(2)}
+            </p>
+          </div>
+        ) : (
+          <div className="text-center">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              Total
+            </p>
+            <p className="text-lg font-bold text-slate-800">
+              ₹{totalAmount.toFixed(2)}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
