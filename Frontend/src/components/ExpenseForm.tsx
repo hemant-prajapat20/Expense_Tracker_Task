@@ -72,17 +72,17 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 h-full flex flex-col">
-      <h2 className="text-xl font-semibold text-slate-800 mb-6">Add New Expense</h2>
-      
-      {error && (
-        <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
-          {error}
-        </div>
-      )}
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 h-full flex flex-col justify-between">
+      <div>
+        <h2 className="text-xl font-semibold text-slate-800 mb-6">Add New Expense</h2>
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
+            {error}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between">
-        <div className="space-y-5 mb-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Amount *</label>
             <div className="relative">
@@ -137,16 +137,31 @@ export function ExpenseForm({ onExpenseAdded }: ExpenseFormProps) {
               placeholder="What was this for?"
             />
           </div>
-        </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? 'Adding...' : 'Add Expense'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? 'Adding...' : 'Add Expense'}
+          </button>
+        </form>
+      </div>
+
+      {/* Helper Smart Tip to fill remaining height space beautifully */}
+      <div className="mt-8 p-4 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3 animate-fade-in">
+        <div className="text-blue-500 mt-0.5 shrink-0">
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-0.5">Smart Tip</h4>
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Consistently categorizing your expenses helps you identify areas where you can save. Check the Spending Breakdown to see where your money goes!
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
