@@ -122,10 +122,10 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       
       {/* Header and Filters */}
-      <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <h2 className="text-xl font-semibold text-slate-800">Recent Expenses</h2>
         
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <button 
             onClick={exportCSV}
             className="text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
@@ -149,9 +149,9 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-600">
+      {/* Table Data */}
+      <div className="overflow-x-auto w-full">
+        <table className="w-full text-left border-collapse">
           <thead className="bg-slate-50 text-slate-500 font-medium">
             <tr>
               <th className="px-6 py-3">Date</th>

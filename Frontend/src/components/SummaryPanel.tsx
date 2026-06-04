@@ -45,7 +45,7 @@ export function SummaryPanel({ refreshTrigger }: SummaryPanelProps) {
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col h-full relative overflow-hidden">
       <h2 className="text-xl font-semibold text-slate-800 mb-6">Financial Overview</h2>
       
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
         <div className={`p-4 rounded-xl border ${isOverBudget ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
           <div className="flex justify-between items-start mb-1">
             <p className={`text-sm font-medium ${isOverBudget ? 'text-red-600' : 'text-blue-600'}`}>Total This Month</p>
