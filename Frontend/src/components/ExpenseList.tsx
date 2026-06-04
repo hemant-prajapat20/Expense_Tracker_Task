@@ -85,6 +85,38 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
     }
   };
 
+  const exportCSV = () => {
+    if (expenses.length === 0) {
+      alert("No data to export.");
+      return;
+    }
+    const headers = ['ID', 'Date', 'Category', 'Amount', 'Note'];
+    const csvRows = [headers.join(',')];
+    
+    expenses.forEach(exp => {
+      const row = [
+        exp.id,
+        exp.date,
+        exp.category,
+        exp.amount,
+        `"${exp.note || ''}"` // Wrap note in quotes to handle commas inside the note
+      ];
+      csvRows.push(row.join(','));
+    });
+    
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `expenses_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       
@@ -92,7 +124,18 @@ export function ExpenseList({ refreshTrigger, onExpenseDeletedOrUpdated }: Expen
       <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h2 className="text-xl font-semibold text-slate-800">Recent Expenses</h2>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={exportCSV}
+            className="text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Export CSV
+          </button>
+
+          <div className="flex items-center gap-2">
           <label className="text-sm text-slate-500 font-medium">Filter:</label>
           <select 
             value={filterCategory}
